@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import {Button, Col, Container, Form, FormGroup, Input, Label, Row} from 'reactstrap';
 import AppNavbar from './AppNavbar';
+import AppSideBar from './AppSideBar';
 
 class ClientEdit extends Component {
 
@@ -60,7 +61,7 @@ class ClientEdit extends Component {
             <Container fluid>
                 <Row>
                     <Col xs={2}>
-
+                        <AppSideBar/>
                     </Col>
                     <Col xs={10}>
                         {title}

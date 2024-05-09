@@ -1,15 +1,9 @@
 package com.example.TestSpring.Controller;
 
-import com.example.TestSpring.Entity.Car;
 import com.example.TestSpring.Entity.Client;
-import com.example.TestSpring.Entity.Order;
-import com.example.TestSpring.Repository.CarRepository;
 import com.example.TestSpring.Repository.ClientRepository;
-import com.example.TestSpring.Repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;

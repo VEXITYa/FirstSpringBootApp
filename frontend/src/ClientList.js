@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {Button, ButtonGroup, Col, Container, Row, Table} from 'reactstrap';
 import AppNavbar from './AppNavbar';
+import AppSideBar from './AppSideBar';
 import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 class ClientList extends Component {
 
@@ -53,7 +55,7 @@ class ClientList extends Component {
                 <Container fluid>
                     <Row>
                         <Col xs={2}>
-
+                            <AppSideBar/>
                         </Col>
                         <Col xs={10}>
                             <Row>
@@ -61,17 +63,17 @@ class ClientList extends Component {
                                     <h3>Clients</h3>
                                 </Col>
                                 <Col>
-                                    <div className="float-right">
+                                    <div className="d-flex justify-content-end">
                                         <Button color="success" tag={Link} to="/clients/new">Add Client</Button>
                                     </div>
                                 </Col>
                             </Row>
 
 
-                            <Table className="mt-4">
+                            <Table className="mt-4 table-hover">
                                 <thead>
                                 <tr>
-                                <th width="30%">Name</th>
+                                    <th width="30%">Name</th>
                                     <th width="30%">PhoneNumber</th>
                                     <th width="5%">Discount</th>
                                     <th width="35%">Actions</th>
