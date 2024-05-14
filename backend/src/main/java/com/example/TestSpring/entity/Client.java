@@ -30,12 +30,8 @@ public class Client {
     @Column(name = "Discount", nullable = false)
     private Integer discount;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(
-            mappedBy = "client",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany()
+    @JoinColumn(name = "ClientId")
     private Set<Car> cars = new LinkedHashSet<>();
 
 }

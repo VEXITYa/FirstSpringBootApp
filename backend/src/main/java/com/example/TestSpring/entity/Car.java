@@ -23,9 +23,8 @@ public class Car {
     @Column(name = "VIN", nullable = false, length = 17)
     private String vin;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ClientId", nullable = false)
-    private Client client;
+    @Column(name = "ClientId", nullable = false)
+    private Integer clientId;
 
     @Nationalized
     @Column(name = "Brand", nullable = false, length = 20)

@@ -38,7 +38,7 @@ public class CarsController {
     public ResponseEntity updateCar(@PathVariable Integer id, @RequestBody Car Car) {
         Car currentCar = carRepository.findById(id).orElseThrow(RuntimeException::new);
         currentCar.setVin(Car.getVin());
-        currentCar.setClient(Car.getClient());
+        currentCar.setClientId(Car.getClientId());
         currentCar.setBrand(Car.getBrand());
         currentCar.setModel(Car.getModel());
         currentCar.setYear(Car.getYear());
