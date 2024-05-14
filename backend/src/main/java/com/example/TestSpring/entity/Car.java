@@ -37,8 +37,8 @@ public class Car {
     @Column(name = "\"Year\"")
     private Integer year;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany()
+    @JoinColumn(name = "CarId")
     private Set<Order> orders = new LinkedHashSet<>();
 
 }

@@ -15,10 +15,8 @@ public class OrderPart {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "OrderId", nullable = false)
-    private Order order;
+    @Column(name = "OrderId", nullable = false)
+    private Integer order;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

@@ -20,18 +20,11 @@ public class Order {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @Column(name = "ClientId", nullable = false)
+    private Integer client;
 
-    @JsonIgnore
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ClientId", nullable = false)
-    private Client client;
-
-    @JsonIgnore
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CarId", nullable = false)
-    private Car car;
+    @Column(name = "CarId", nullable = false)
+    private Integer car;
 
     @Column(name = "DateOfOrder", nullable = false)
     private Instant dateOfOrder;
@@ -45,11 +38,11 @@ public class Order {
     @Column(name = "Cost", nullable = false)
     private Integer cost;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany()
-    private Set<Service> services = new LinkedHashSet<>();
+    @JoinColumn(name = "OrderId")
+    private Set<OrderService> services = new LinkedHashSet<>();
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany()
-    private Set<Part> parts = new LinkedHashSet<>();
+    @JoinColumn(name = "OrderId")
+    private Set<OrderPart> parts = new LinkedHashSet<>();
 }
