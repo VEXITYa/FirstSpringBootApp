@@ -36,14 +36,6 @@ public class Client {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Order> orders = new LinkedHashSet<>();
-
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(
-            mappedBy = "client",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
     private Set<Car> cars = new LinkedHashSet<>();
 
 }
