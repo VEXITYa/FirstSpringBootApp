@@ -15,14 +15,10 @@ public class Competence {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ServiceId", nullable = false)
-    private Service service;
+    @Column(name = "ServiceId", nullable = false)
+    private Integer serviceId;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "EmployeeId", nullable = false)
-    private Employee employee;
+    @Column(name = "EmployeeId", nullable = false)
+    private Integer employeeId;
 
 }

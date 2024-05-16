@@ -37,9 +37,9 @@ public class OrderServiceController {
     @PutMapping("/{id}")
     public ResponseEntity updateOrderService(@PathVariable Integer id, @RequestBody OrderService OrderService) {
         OrderService currentOrderService = orderServiceRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentOrderService.setOrder(OrderService.getOrder());
-        currentOrderService.setService(OrderService.getService());
-        currentOrderService.setEmployee(OrderService.getEmployee());
+        currentOrderService.setOrderId(OrderService.getOrderId());
+        currentOrderService.setServiceId(OrderService.getServiceId());
+        currentOrderService.setEmployeeId(OrderService.getEmployeeId());
         currentOrderService.setDateStart(OrderService.getDateStart());
         currentOrderService.setDateEnd(OrderService.getDateEnd());
         currentOrderService = orderServiceRepository.save(OrderService);

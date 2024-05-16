@@ -15,14 +15,10 @@ public class ServicePart {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ServiceId", nullable = false)
-    private Service service;
+    @Column(name = "ServiceId", nullable = false)
+    private Integer serviceId;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "PartId", nullable = false)
-    private Part part;
+    @Column(name = "PartId", nullable = false)
+    private Integer part;
 
 }

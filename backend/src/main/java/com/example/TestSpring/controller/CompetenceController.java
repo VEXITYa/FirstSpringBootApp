@@ -37,8 +37,8 @@ public class CompetenceController {
     @PutMapping("/{id}")
     public ResponseEntity updateCompetence(@PathVariable Integer id, @RequestBody Competence Competence) {
         Competence currentCompetence = competenceRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentCompetence.setService(Competence.getService());
-        currentCompetence.setEmployee(Competence.getEmployee());
+        currentCompetence.setServiceId(Competence.getServiceId());
+        currentCompetence.setEmployeeId(Competence.getEmployeeId());
         currentCompetence = competenceRepository.save(Competence);
 
         return ResponseEntity.ok(currentCompetence);

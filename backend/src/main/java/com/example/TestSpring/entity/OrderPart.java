@@ -16,12 +16,10 @@ public class OrderPart {
     private Integer id;
 
     @Column(name = "OrderId", nullable = false)
-    private Integer order;
+    private Integer orderId;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "PartId", nullable = false)
-    private Part part;
+    @Column(name = "PartId", nullable = false)
+    private Integer partId;
 
     @Column(name = "\"count\"", nullable = false)
     private Integer count;

@@ -37,8 +37,8 @@ public class OrderController {
     @PutMapping("/{id}")
     public ResponseEntity updateOrder(@PathVariable Integer id, @RequestBody Order Order) {
         Order currentOrder = orderRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentOrder.setClient(Order.getClient());
-        currentOrder.setCar(Order.getCar());
+        currentOrder.setClientId(Order.getClientId());
+        currentOrder.setCarId(Order.getCarId());
         currentOrder.setDateOfOrder(Order.getDateOfOrder());
         currentOrder.setWorkStart(Order.getWorkStart());
         currentOrder.setWorkEnd(Order.getWorkEnd());

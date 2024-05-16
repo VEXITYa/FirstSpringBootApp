@@ -36,9 +36,4 @@ public class Car {
 
     @Column(name = "\"Year\"")
     private Integer year;
-
-    @OneToMany()
-    @JoinColumn(name = "CarId")
-    private Set<Order> orders = new LinkedHashSet<>();
-
 }

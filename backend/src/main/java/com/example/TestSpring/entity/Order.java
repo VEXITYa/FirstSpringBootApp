@@ -21,10 +21,10 @@ public class Order {
     private Integer id;
 
     @Column(name = "ClientId", nullable = false)
-    private Integer client;
+    private Integer clientId;
 
     @Column(name = "CarId", nullable = false)
-    private Integer car;
+    private Integer carId;
 
     @Column(name = "DateOfOrder", nullable = false)
     private Instant dateOfOrder;
@@ -37,12 +37,4 @@ public class Order {
 
     @Column(name = "Cost", nullable = false)
     private Integer cost;
-
-    @OneToMany()
-    @JoinColumn(name = "OrderId")
-    private Set<OrderService> services = new LinkedHashSet<>();
-
-    @OneToMany()
-    @JoinColumn(name = "OrderId")
-    private Set<OrderPart> parts = new LinkedHashSet<>();
 }

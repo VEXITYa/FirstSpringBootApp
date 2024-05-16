@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Container, Row} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class AppNavbar extends Component {

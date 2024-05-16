@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import {Button, Col, Container, Form, FormGroup, Input, Label, Row} from 'reactstrap';
-import AppNavbar from './AppNavbar';
-import AppSideBar from './AppSideBar';
+import AppNavbar from '../AppNavbar';
+import AppSideBar from '../AppSideBar';
 
 class ClientEdit extends Component {
 

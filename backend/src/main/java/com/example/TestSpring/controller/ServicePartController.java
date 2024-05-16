@@ -37,7 +37,7 @@ public class ServicePartController {
     @PutMapping("/{id}")
     public ResponseEntity updateServicePart(@PathVariable Integer id, @RequestBody ServicePart ServicePart) {
         ServicePart currentServicePart = servicePartRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentServicePart.setService(ServicePart.getService());
+        currentServicePart.setServiceId(ServicePart.getServiceId());
         currentServicePart.setPart(ServicePart.getPart());
         currentServicePart = servicePartRepository.save(ServicePart);
 

@@ -29,9 +29,4 @@ public class Client {
 
     @Column(name = "Discount", nullable = false)
     private Integer discount;
-
-    @OneToMany()
-    @JoinColumn(name = "ClientId")
-    private Set<Car> cars = new LinkedHashSet<>();
-
 }

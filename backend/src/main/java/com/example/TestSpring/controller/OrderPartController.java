@@ -37,8 +37,8 @@ public class OrderPartController {
     @PutMapping("/{id}")
     public ResponseEntity updateOrderPart(@PathVariable Integer id, @RequestBody OrderPart OrderPart) {
         OrderPart currentOrderPart = orderPartRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentOrderPart.setOrder(OrderPart.getOrder());
-        currentOrderPart.setPart(OrderPart.getPart());
+        currentOrderPart.setOrderId(OrderPart.getOrderId());
+        currentOrderPart.setPartId(OrderPart.getPartId());
         currentOrderPart.setCount(OrderPart.getCount());
         currentOrderPart = orderPartRepository.save(OrderPart);
 

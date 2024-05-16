@@ -1,49 +1,53 @@
 import React, { Component } from 'react';
 import {Button, ButtonGroup, Col, Container, Row, Table} from 'reactstrap';
-import AppNavbar from './AppNavbar';
-import AppSideBar from './AppSideBar';
+import AppNavbar from '../AppNavbar';
+import AppSideBar from '../AppSideBar';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-class ClientList extends Component {
+class OrderList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {clients: []};
+        this.state = {orders: []};
         this.remove = this.remove.bind(this);
     }
 
     componentDidMount() {
-        fetch('/clients')
+        fetch('/orders')
             .then(response => response.json())
-            .then(data => this.setState({clients: data}));
+            .then(data => this.setState({orders: data}));
     }
 
     async remove(id) {
-        await fetch(`/clients/${id}`, {
+        await fetch(`/orders/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         }).then(() => {
-            let updatedClients = [...this.state.clients].filter(i => i.id !== id);
-            this.setState({clients: updatedClients});
+            let updatedOrders = [...this.state.orders].filter(i => i.id !== id);
+            this.setState({orders: updatedOrders});
         });
     }
 
     render() {
-        const {clients} = this.state;
+        const {orders} = this.state;
 
-        const clientList = clients.map(client => {
-            return <tr key={client.id}>
-                <td style={{whiteSpace: 'nowrap'}}>{client.name}</td>
-                <td>{client.phoneNumber}</td>
-                <td>{client.discount}</td>
+        const orderList = orders.map(order => {
+            return <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>{order.clientId}</td>
+                <td>{order.carId}</td>
+                <td>{order.dateOfOrder}</td>
+                <td>{order.workStart}</td>
+                <td>{order.workEnd}</td>
+                <td>{order.cost}</td>
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/clients/" + client.id}>Edit</Button>
-                        <Button size="sm" color="danger" onClick={() => this.remove(client.id)}>Delete</Button>
+                        <Button size="sm" color="primary" tag={Link} to={"/orders/" + order.id}>Edit</Button>
+                        <Button size="sm" color="danger" onClick={() => this.remove(order.id)}>Delete</Button>
                     </ButtonGroup>
                 </td>
             </tr>
@@ -60,11 +64,11 @@ class ClientList extends Component {
                         <Col xs={10}>
                             <Row>
                                 <Col>
-                                    <h3>Clients</h3>
+                                    <h3>Orders</h3>
                                 </Col>
                                 <Col>
                                     <div className="d-flex justify-content-end">
-                                        <Button color="success" tag={Link} to="/clients/new">Add Client</Button>
+                                        <Button color="success" tag={Link} to="/orders/new">Add Order</Button>
                                     </div>
                                 </Col>
                             </Row>
@@ -73,14 +77,17 @@ class ClientList extends Component {
                             <Table className="mt-4 table-hover">
                                 <thead>
                                 <tr>
-                                    <th width="30%">Name</th>
-                                    <th width="30%">PhoneNumber</th>
-                                    <th width="5%">Discount</th>
-                                    <th width="35%">Actions</th>
+                                    <th width="5%">id</th>
+                                    <th width="10%">ClientId</th>
+                                    <th width="10%">CarId</th>
+                                    <th width="20%">DateOfOrder</th>
+                                    <th width="20%">WorkStart</th>
+                                    <th width="20%">WorkEnd</th>
+                                    <th width="15%">Cost</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {clientList}
+                                {orderList}
                                 </tbody>
                             </Table>
                         </Col>
@@ -92,4 +99,4 @@ class ClientList extends Component {
     }
 }
 
-export default ClientList;
+export default OrderList;
