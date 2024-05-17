@@ -4,6 +4,7 @@ import com.example.TestSpring.entity.Car;
 import com.example.TestSpring.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -27,6 +28,7 @@ public class CarController {
         return carService.getCar(id);
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping
     public ResponseEntity<Car> createCar(@RequestBody Car car) throws URISyntaxException {
         return carService.createCar(car);
