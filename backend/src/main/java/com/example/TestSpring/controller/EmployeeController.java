@@ -1,12 +1,11 @@
 package com.example.TestSpring.controller;
 
 import com.example.TestSpring.entity.Employee;
-import com.example.TestSpring.repository.EmployeeRepository;
+import com.example.TestSpring.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -15,42 +14,32 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/employee")
 public class EmployeeController {
-
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
     @GetMapping
-    public List<Employee> getEmployees() {
-        return employeeRepository.findAll();
+    public ResponseEntity<List<Employee>> getEmployee() {
+
+        return employeeService.getEmployee();
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployee(@PathVariable Integer id) {
-        return employeeRepository.findById(id).orElseThrow(RuntimeException::new);
+    public ResponseEntity<Employee> getEmployee(@PathVariable Integer id) {
+        return employeeService.getEmployee(id);
     }
 
     @PostMapping
-    public ResponseEntity createEmployee(@RequestBody Employee Employee) throws URISyntaxException {
-        Employee savedEmployee = employeeRepository.save(Employee);
-        return ResponseEntity.created(new URI("/employee/" + savedEmployee.getId())).body(savedEmployee);
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) throws URISyntaxException {
+        return employeeService.createEmployee(employee);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateEmployee(@PathVariable Integer id, @RequestBody Employee Employee) {
-        Employee currentEmployee = employeeRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentEmployee.setName(Employee.getName());
-        currentEmployee.setPhoneNumber(Employee.getPhoneNumber());
-        currentEmployee.setBirthday(Employee.getBirthday());
-        currentEmployee.setJobTitle(Employee.getJobTitle());
-        currentEmployee.setExperience(Employee.getExperience());
-        currentEmployee = employeeRepository.save(Employee);
-
-        return ResponseEntity.ok(currentEmployee);
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
+        return employeeService.updateEmployee(id, employee);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteEmployee(@PathVariable Integer id) {
-        employeeRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteEmployee(@PathVariable Integer id) {
+        return employeeService.deleteEmployee(id);
     }
 
 }

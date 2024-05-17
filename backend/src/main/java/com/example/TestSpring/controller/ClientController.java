@@ -1,13 +1,11 @@
 package com.example.TestSpring.controller;
 
 import com.example.TestSpring.entity.Client;
-import com.example.TestSpring.repository.ClientRepository;
-import com.example.TestSpring.service.ClientsService;
+import com.example.TestSpring.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -15,35 +13,33 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/clients")
-public class ClientsController {
-
-    private final ClientRepository clientRepository;
-    private final ClientsService clientsService;
+public class ClientController {
+    private final ClientService clientService;
 
     @GetMapping
     public ResponseEntity<List<Client>> getClients() {
 
-        return clientsService.getClients();
+        return clientService.getClients();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Client> getClient(@PathVariable Integer id) {
-        return clientsService.getClient(id);
+        return clientService.getClient(id);
     }
 
     @PostMapping
     public ResponseEntity<Client> createClient(@RequestBody Client client) throws URISyntaxException {
-        return clientsService.createClient(client);
+        return clientService.createClient(client);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Client> updateClient(@PathVariable Integer id, @RequestBody Client client) {
-        return clientsService.updateClient(id, client);
+        return clientService.updateClient(id, client);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteClient(@PathVariable Integer id) {
-        return clientsService.deleteClient(id);
+        return clientService.deleteClient(id);
     }
 
 }

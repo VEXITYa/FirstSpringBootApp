@@ -1,53 +1,45 @@
 package com.example.TestSpring.controller;
 
 import com.example.TestSpring.entity.ServicePart;
-import com.example.TestSpring.repository.ServicePartRepository;
+import com.example.TestSpring.service.ServicePartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/servicepart")
+@RequestMapping("/servicePart")
 public class ServicePartController {
-
-    private final ServicePartRepository servicePartRepository;
+    private final ServicePartService servicePartService;
 
     @GetMapping
-    public List<ServicePart> getServiceParts() {
-        return servicePartRepository.findAll();
+    public ResponseEntity<List<ServicePart>> getServicePart() {
+
+        return servicePartService.getServicePart();
     }
 
     @GetMapping("/{id}")
-    public ServicePart getServicePart(@PathVariable Integer id) {
-        return servicePartRepository.findById(id).orElseThrow(RuntimeException::new);
+    public ResponseEntity<ServicePart> getServicePart(@PathVariable Integer id) {
+        return servicePartService.getServicePart(id);
     }
 
     @PostMapping
-    public ResponseEntity createServicePart(@RequestBody ServicePart ServicePart) throws URISyntaxException {
-        ServicePart savedServicePart = servicePartRepository.save(ServicePart);
-        return ResponseEntity.created(new URI("/servicepart/" + savedServicePart.getId())).body(savedServicePart);
+    public ResponseEntity<ServicePart> createServicePart(@RequestBody ServicePart servicePart) throws URISyntaxException {
+        return servicePartService.createServicePart(servicePart);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateServicePart(@PathVariable Integer id, @RequestBody ServicePart ServicePart) {
-        ServicePart currentServicePart = servicePartRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentServicePart.setServiceId(ServicePart.getServiceId());
-        currentServicePart.setPart(ServicePart.getPart());
-        currentServicePart = servicePartRepository.save(ServicePart);
-
-        return ResponseEntity.ok(currentServicePart);
+    public ResponseEntity<ServicePart> updateServicePart(@PathVariable Integer id, @RequestBody ServicePart servicePart) {
+        return servicePartService.updateServicePart(id, servicePart);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteServicePart(@PathVariable Integer id) {
-        servicePartRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteServicePart(@PathVariable Integer id) {
+        return servicePartService.deleteServicePart(id);
     }
 
 }

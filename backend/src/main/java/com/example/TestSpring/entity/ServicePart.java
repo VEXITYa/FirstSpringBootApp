@@ -19,6 +19,6 @@ public class ServicePart {
     private Integer serviceId;
 
     @Column(name = "PartId", nullable = false)
-    private Integer part;
+    private Integer partId;
 
 }

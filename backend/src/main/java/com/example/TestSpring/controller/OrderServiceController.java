@@ -1,56 +1,45 @@
 package com.example.TestSpring.controller;
 
 import com.example.TestSpring.entity.OrderService;
-import com.example.TestSpring.repository.OrderServiceRepository;
+import com.example.TestSpring.service.OrderServiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/orderservice")
+@RequestMapping("/orderService")
 public class OrderServiceController {
-
-    private final OrderServiceRepository orderServiceRepository;
+    private final OrderServiceService orderServiceService;
 
     @GetMapping
-    public List<OrderService> getOrderServices() {
-        return orderServiceRepository.findAll();
+    public ResponseEntity<List<OrderService>> getOrderService() {
+
+        return orderServiceService.getOrderService();
     }
 
     @GetMapping("/{id}")
-    public OrderService getOrderService(@PathVariable Integer id) {
-        return orderServiceRepository.findById(id).orElseThrow(RuntimeException::new);
+    public ResponseEntity<OrderService> getOrderService(@PathVariable Integer id) {
+        return orderServiceService.getOrderService(id);
     }
 
     @PostMapping
-    public ResponseEntity createOrderService(@RequestBody OrderService OrderService) throws URISyntaxException {
-        OrderService savedOrderService = orderServiceRepository.save(OrderService);
-        return ResponseEntity.created(new URI("/orderservice/" + savedOrderService.getId())).body(savedOrderService);
+    public ResponseEntity<OrderService> createOrderService(@RequestBody OrderService orderService) throws URISyntaxException {
+        return orderServiceService.createOrderService(orderService);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateOrderService(@PathVariable Integer id, @RequestBody OrderService OrderService) {
-        OrderService currentOrderService = orderServiceRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentOrderService.setOrderId(OrderService.getOrderId());
-        currentOrderService.setServiceId(OrderService.getServiceId());
-        currentOrderService.setEmployeeId(OrderService.getEmployeeId());
-        currentOrderService.setDateStart(OrderService.getDateStart());
-        currentOrderService.setDateEnd(OrderService.getDateEnd());
-        currentOrderService = orderServiceRepository.save(OrderService);
-
-        return ResponseEntity.ok(currentOrderService);
+    public ResponseEntity<OrderService> updateOrderService(@PathVariable Integer id, @RequestBody OrderService orderService) {
+        return orderServiceService.updateOrderService(id, orderService);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteOrderService(@PathVariable Integer id) {
-        orderServiceRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteOrderService(@PathVariable Integer id) {
+        return orderServiceService.deleteOrderService(id);
     }
 
 }

@@ -1,12 +1,11 @@
 package com.example.TestSpring.controller;
 
 import com.example.TestSpring.entity.Order;
-import com.example.TestSpring.repository.OrderRepository;
+import com.example.TestSpring.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -15,43 +14,32 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/orders")
 public class OrderController {
-
-    private final OrderRepository orderRepository;
+    private final OrderService orderService;
 
     @GetMapping
-    public List<Order> getOrders() {
-        return orderRepository.findAll();
+    public ResponseEntity<List<Order>> getOrders() {
+
+        return orderService.getOrders();
     }
 
     @GetMapping("/{id}")
-    public Order getOrder(@PathVariable Integer id) {
-        return orderRepository.findById(id).orElseThrow(RuntimeException::new);
+    public ResponseEntity<Order> getOrder(@PathVariable Integer id) {
+        return orderService.getOrder(id);
     }
 
     @PostMapping
-    public ResponseEntity createOrder(@RequestBody Order Order) throws URISyntaxException {
-        Order savedOrder = orderRepository.save(Order);
-        return ResponseEntity.created(new URI("/orders/" + savedOrder.getId())).body(savedOrder);
+    public ResponseEntity<Order> createOrder(@RequestBody Order order) throws URISyntaxException {
+        return orderService.createOrder(order);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateOrder(@PathVariable Integer id, @RequestBody Order Order) {
-        Order currentOrder = orderRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentOrder.setClientId(Order.getClientId());
-        currentOrder.setCarId(Order.getCarId());
-        currentOrder.setDateOfOrder(Order.getDateOfOrder());
-        currentOrder.setWorkStart(Order.getWorkStart());
-        currentOrder.setWorkEnd(Order.getWorkEnd());
-        currentOrder.setCost(Order.getCost());
-        currentOrder = orderRepository.save(Order);
-
-        return ResponseEntity.ok(currentOrder);
+    public ResponseEntity<Order> updateOrder(@PathVariable Integer id, @RequestBody Order order) {
+        return orderService.updateOrder(id, order);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteOrder(@PathVariable Integer id) {
-        orderRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteOrder(@PathVariable Integer id) {
+        return orderService.deleteOrder(id);
     }
 
 }

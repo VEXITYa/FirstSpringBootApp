@@ -1,12 +1,11 @@
 package com.example.TestSpring.controller;
 
 import com.example.TestSpring.entity.Competence;
-import com.example.TestSpring.repository.CompetenceRepository;
+import com.example.TestSpring.service.CompetenceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -15,39 +14,32 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/competence")
 public class CompetenceController {
-
-    private final CompetenceRepository competenceRepository;
+    private final CompetenceService competenceService;
 
     @GetMapping
-    public List<Competence> getCompetences() {
-        return competenceRepository.findAll();
+    public ResponseEntity<List<Competence>> getCompetence() {
+
+        return competenceService.getCompetence();
     }
 
     @GetMapping("/{id}")
-    public Competence getCompetence(@PathVariable Integer id) {
-        return competenceRepository.findById(id).orElseThrow(RuntimeException::new);
+    public ResponseEntity<Competence> getCompetence(@PathVariable Integer id) {
+        return competenceService.getCompetence(id);
     }
 
     @PostMapping
-    public ResponseEntity createCompetence(@RequestBody Competence Competence) throws URISyntaxException {
-        Competence savedCompetence = competenceRepository.save(Competence);
-        return ResponseEntity.created(new URI("/competence/" + savedCompetence.getId())).body(savedCompetence);
+    public ResponseEntity<Competence> createCompetence(@RequestBody Competence competence) throws URISyntaxException {
+        return competenceService.createCompetence(competence);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateCompetence(@PathVariable Integer id, @RequestBody Competence Competence) {
-        Competence currentCompetence = competenceRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentCompetence.setServiceId(Competence.getServiceId());
-        currentCompetence.setEmployeeId(Competence.getEmployeeId());
-        currentCompetence = competenceRepository.save(Competence);
-
-        return ResponseEntity.ok(currentCompetence);
+    public ResponseEntity<Competence> updateCompetence(@PathVariable Integer id, @RequestBody Competence competence) {
+        return competenceService.updateCompetence(id, competence);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteCompetence(@PathVariable Integer id) {
-        competenceRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteCompetence(@PathVariable Integer id) {
+        return competenceService.deleteCompetence(id);
     }
 
 }
