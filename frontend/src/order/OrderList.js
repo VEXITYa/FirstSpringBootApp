@@ -14,13 +14,13 @@ class OrderList extends Component {
     }
 
     componentDidMount() {
-        fetch('/orders')
+        fetch('/api/orders')
             .then(response => response.json())
             .then(data => this.setState({orders: data}));
     }
 
     async remove(id) {
-        await fetch(`/orders/${id}`, {
+        await fetch(`/api/orders/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',

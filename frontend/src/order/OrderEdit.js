@@ -26,7 +26,7 @@ class OrderEdit extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const order = await (await fetch(`/orders/${this.props.match.params.id}`)).json();
+            const order = await (await fetch(`/api/orders/${this.props.match.params.id}`)).json();
             this.setState({item: order});
         }
     }
@@ -44,7 +44,7 @@ class OrderEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
 
-        await fetch('/orders' + (item.id ? '/' + item.id : ''), {
+        await fetch('/api/orders' + (item.id ? '/' + item.id : ''), {
             method: (item.id) ? 'PUT' : 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -52,7 +52,7 @@ class OrderEdit extends Component {
             },
             body: JSON.stringify(item),
         });
-        this.props.history.push('/orders');
+        this.props.history.push('/api/orders');
     }
 
     render() {

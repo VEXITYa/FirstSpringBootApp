@@ -14,13 +14,13 @@ class ClientList extends Component {
     }
 
     componentDidMount() {
-        fetch('/clients')
+        fetch('/api/clients')
             .then(response => response.json())
             .then(data => this.setState({clients: data}));
     }
 
     async remove(id) {
-        await fetch(`/clients/${id}`, {
+        await fetch(`/api/clients/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',

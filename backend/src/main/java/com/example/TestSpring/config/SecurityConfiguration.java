@@ -15,6 +15,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CsrfFilter;
 
+
+
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
@@ -38,16 +40,17 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .antMatchers(HttpMethod.GET, "/clients", "/clients/*").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/cars", "/cars/*").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/orders", "/orders/*").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/orderPart", "/orderPart/*").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/orderService", "/orderService/*").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/competence", "/competence/*").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/employee", "/employee/*").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/parts", "/parts/*").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/service", "/service/*").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/servicePart", "/servicePart/*").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/").permitAll()
+                        .antMatchers(HttpMethod.GET, "/api/clients", "/api/clients/*").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/cars", "/api/cars/*").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/orders", "/api/orders/*").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/orderPart", "/api/orderPart/*").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/orderService", "/api/orderService/*").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/competence", "/api/competence/*").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/employee", "/api/employee/*").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/parts", "/api/parts/*").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/service", "/api/service/*").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "//apiservicePart", "/api/servicePart/*").hasRole("USER")
 
                         .antMatchers(HttpMethod.POST, "/clients", "/clients/*").hasRole("ADMIN")
                         .antMatchers(HttpMethod.POST, "/cars", "/cars/*").hasRole("ADMIN")

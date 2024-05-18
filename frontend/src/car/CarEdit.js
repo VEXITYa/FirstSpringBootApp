@@ -25,7 +25,7 @@ class CarEdit extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const car = await (await fetch(`/cars/${this.props.match.params.id}`)).json();
+            const car = await (await fetch(`/api/cars/${this.props.match.params.id}`)).json();
             this.setState({item: car});
         }
     }
@@ -43,7 +43,7 @@ class CarEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
 
-        await fetch('/cars' + (item.id ? '/' + item.id : ''), {
+        await fetch('/api/cars' + (item.id ? '/' + item.id : ''), {
             method: (item.id) ? 'PUT' : 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -51,7 +51,7 @@ class CarEdit extends Component {
             },
             body: JSON.stringify(item),
         });
-        this.props.history.push('/cars');
+        this.props.history.push('/api/cars');
     }
 
     render() {

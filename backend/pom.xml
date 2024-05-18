@@ -17,6 +17,10 @@
         <rest-assured.version>5.4.0</rest-assured.version>
         <groovy.version>3.0.20</groovy.version>
         <java.version>21</java.version>
+        <frontend-src-dir>${project.basedir}/../frontend</frontend-src-dir>
+        <node.version>v18.0.0</node.version>
+        <yarn.version>v1.16.0</yarn.version>
+        <frontend-maven-plugin.version>1.7.6</frontend-maven-plugin.version>
     </properties>
     <dependencies>
         <dependency>
@@ -78,25 +82,63 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.7.6</version>
+
+                <configuration>
+                    <nodeVersion>${node.version}</nodeVersion>
+                    <yarnVersion>${yarn.version}</yarnVersion>
+                    <workingDirectory>${frontend-src-dir}</workingDirectory>
+                    <installDirectory>${project.build.directory}</installDirectory>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>install-frontend-tools</id>
+                        <goals>
+                            <goal>install-node-and-yarn</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>yarn-install</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>build-frontend</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <arguments>build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>copy Vue.js frontend content</id>
-                        <phase>generate-resources</phase>
+                        <id>position-react-build</id>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
+                        <phase>prepare-package</phase>
                         <configuration>
-                            <outputDirectory>src/main/resources/public</outputDirectory>
-                            <overwrite>true</overwrite>
+                            <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.parent.basedir}/frontend/target/dist</directory>
-                                    <includes>
-                                        <include>static/</include>
-                                        <include>index.html</include>
-                                        <include>favicon.ico</include>
-                                    </includes>
+                                    <directory>${frontend-src-dir}/build</directory>
+                                    <filtering>false</filtering>
                                 </resource>
                             </resources>
                         </configuration>

@@ -14,13 +14,13 @@ class CarList extends Component {
     }
 
     componentDidMount() {
-        fetch('/cars')
+        fetch('/api/cars')
             .then(response => response.json())
             .then(data => this.setState({cars: data}));
     }
 
     async remove(id) {
-        await fetch(`/cars/${id}`, {
+        await fetch(`/api/cars/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',

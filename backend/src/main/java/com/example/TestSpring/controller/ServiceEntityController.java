@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/service")
+@RequestMapping("/api/service")
 public class ServiceEntityController {
     private final ServiceEntityService serviceService;
 
