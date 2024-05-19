@@ -4,12 +4,11 @@ import {Button, Col, Container, Form, FormGroup, Input, Label, Row} from 'reacts
 import AppNavbar from '../AppNavbar';
 import AppSideBar from '../AppSideBar';
 
-class ClientEdit extends Component {
+class ServicePartEdit extends Component {
 
     emptyItem = {
-        name: '',
-        phoneNumber: '',
-        discount: ''
+        serviceId: 0,
+        partId: 0
     };
 
     constructor(props) {
@@ -23,8 +22,8 @@ class ClientEdit extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const client = await (await fetch(`/api/clients/${this.props.match.params.id}`)).json();
-            this.setState({item: client});
+            const servicePart = await (await fetch(`/api/servicePart/${this.props.match.params.id}`)).json();
+            this.setState({item: servicePart});
         }
     }
 
@@ -41,7 +40,7 @@ class ClientEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
 
-        await fetch('/api/clients' + (item.id ? '/' + item.id : ''), {
+        await fetch('/api/servicePart' + (item.id ? '/' + item.id : ''), {
             method: (item.id) ? 'PUT' : 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -49,12 +48,12 @@ class ClientEdit extends Component {
             },
             body: JSON.stringify(item),
         });
-        this.props.history.push('/clients');
+        this.props.history.push('/servicePart');
     }
 
     render() {
         const {item} = this.state;
-        const title = <h2>{item.id ? 'Edit Client' : 'Add Client'}</h2>;
+        const title = <h2>{item.id ? 'Edit ServicePart' : 'Add ServicePart'}</h2>;
 
         return <div>
             <AppNavbar/>
@@ -67,23 +66,18 @@ class ClientEdit extends Component {
                         {title}
                         <Form onSubmit={this.handleSubmit}>
                             <FormGroup>
-                                <Label for="name">Name</Label>
-                                <Input type="text" name="name" id="name" value={item.name || ''}
-                                       onChange={this.handleChange} autoComplete="name"/>
+                                <Label for="serviceId">ServiceId</Label>
+                                <Input type="number" name="serviceId" id="serviceId" value={item.serviceId || ''}
+                                       onChange={this.handleChange}/>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="email">PhoneNumber</Label>
-                                <Input type="tel" name="phoneNumber" id="phoneNumber" value={item.phoneNumber || ''}
-                                       onChange={this.handleChange} autoComplete="phoneNumber"/>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="name">Discount</Label>
-                                <Input type="number" name="discount" id="discount" value={item.discount || ''}
-                                       onChange={this.handleChange} autoComplete="discount"/>
+                                <Label for="partId">PartId</Label>
+                                <Input type="number" name="partId" id="partId" value={item.partId || ''}
+                                       onChange={this.handleChange}/>
                             </FormGroup>
                             <FormGroup>
                                 <Button color="primary" type="submit">Save</Button>{' '}
-                                <Button color="secondary" tag={Link} to="/clients">Cancel</Button>
+                                <Button color="secondary" tag={Link} to="/servicePart">Cancel</Button>
                             </FormGroup>
                         </Form>
                     </Col>
@@ -94,4 +88,4 @@ class ClientEdit extends Component {
     }
 }
 
-export default withRouter(ClientEdit);
+export default withRouter(ServicePartEdit);

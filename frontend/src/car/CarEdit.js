@@ -75,7 +75,7 @@ class CarEdit extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="clientId">ClientId</Label>
-                                <Input type="text" name="clientId" id="clientId" value={item.clientId || ''}
+                                <Input type="number" name="clientId" id="clientId" value={item.clientId || ''}
                                        onChange={this.handleChange}/>
                             </FormGroup>
                             <FormGroup>
@@ -90,7 +90,7 @@ class CarEdit extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="name">Year</Label>
-                                <Input type="text" name="year" id="year" value={item.year || ''}
+                                <Input type="number" name="year" id="year" value={item.year || ''}
                                        onChange={this.handleChange}/>
                             </FormGroup>
                             <FormGroup>

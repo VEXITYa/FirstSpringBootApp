@@ -4,12 +4,14 @@ import {Button, Col, Container, Form, FormGroup, Input, Label, Row} from 'reacts
 import AppNavbar from '../AppNavbar';
 import AppSideBar from '../AppSideBar';
 
-class ClientEdit extends Component {
+class EmployeeEdit extends Component {
 
     emptyItem = {
         name: '',
         phoneNumber: '',
-        discount: ''
+        birthday: null,
+        jobTitle: '',
+        experience: null
     };
 
     constructor(props) {
@@ -23,8 +25,8 @@ class ClientEdit extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const client = await (await fetch(`/api/clients/${this.props.match.params.id}`)).json();
-            this.setState({item: client});
+            const employee = await (await fetch(`/api/employee/${this.props.match.params.id}`)).json();
+            this.setState({item: employee});
         }
     }
 
@@ -41,7 +43,7 @@ class ClientEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
 
-        await fetch('/api/clients' + (item.id ? '/' + item.id : ''), {
+        await fetch('/api/employee' + (item.id ? '/' + item.id : ''), {
             method: (item.id) ? 'PUT' : 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -49,12 +51,12 @@ class ClientEdit extends Component {
             },
             body: JSON.stringify(item),
         });
-        this.props.history.push('/clients');
+        this.props.history.push('/employee');
     }
 
     render() {
         const {item} = this.state;
-        const title = <h2>{item.id ? 'Edit Client' : 'Add Client'}</h2>;
+        const title = <h2>{item.id ? 'Edit Employee' : 'Add Employee'}</h2>;
 
         return <div>
             <AppNavbar/>
@@ -73,17 +75,27 @@ class ClientEdit extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="email">PhoneNumber</Label>
-                                <Input type="tel" name="phoneNumber" id="phoneNumber" value={item.phoneNumber || ''}
+                                <Input type="text" name="phoneNumber" id="phoneNumber" value={item.phoneNumber || ''}
                                        onChange={this.handleChange} autoComplete="phoneNumber"/>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="name">Discount</Label>
-                                <Input type="number" name="discount" id="discount" value={item.discount || ''}
-                                       onChange={this.handleChange} autoComplete="discount"/>
+                                <Label for="name">Birthday</Label>
+                                <Input type="date" name="birthday" id="birthday" value={item.birthday || ''}
+                                       onChange={this.handleChange} autoComplete="birthday"/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="name">JobTitle</Label>
+                                <Input type="text" name="jobTitle" id="jobTitle" value={item.jobTitle || ''}
+                                       onChange={this.handleChange} autoComplete="jobTitle"/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="name">Experience</Label>
+                                <Input type="date" name="experience" id="experience" value={item.experience || ''}
+                                       onChange={this.handleChange} autoComplete="experience"/>
                             </FormGroup>
                             <FormGroup>
                                 <Button color="primary" type="submit">Save</Button>{' '}
-                                <Button color="secondary" tag={Link} to="/clients">Cancel</Button>
+                                <Button color="secondary" tag={Link} to="/employee">Cancel</Button>
                             </FormGroup>
                         </Form>
                     </Col>
@@ -94,4 +106,4 @@ class ClientEdit extends Component {
     }
 }
 
-export default withRouter(ClientEdit);
+export default withRouter(EmployeeEdit);

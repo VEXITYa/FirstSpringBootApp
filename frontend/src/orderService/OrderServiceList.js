@@ -5,49 +5,48 @@ import AppSideBar from '../AppSideBar';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-class OrderList extends Component {
+class OrderServiceList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {orders: []};
+        this.state = {orderService: []};
         this.remove = this.remove.bind(this);
     }
 
     componentDidMount() {
-        fetch('/api/orders')
+        fetch('/api/orderService')
             .then(response => response.json())
-            .then(data => this.setState({orders: data}));
+            .then(data => this.setState({orderService: data}));
     }
 
     async remove(id) {
-        await fetch(`/api/orders/${id}`, {
+        await fetch(`/api/orderService/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         }).then(() => {
-            let updatedOrders = [...this.state.orders].filter(i => i.id !== id);
-            this.setState({orders: updatedOrders});
+            let updatedOrderService = [...this.state.orderService].filter(i => i.id !== id);
+            this.setState({orderService: updatedOrderService});
         });
     }
 
     render() {
-        const {orders} = this.state;
+        const {orderService} = this.state;
 
-        const orderList = orders.map(order => {
-            return <tr key={order.id}>
-                <td>{order.id}</td>
-                <td>{order.clientId}</td>
-                <td>{order.carId}</td>
-                <td>{order.dateOfOrder}</td>
-                <td>{order.workStart}</td>
-                <td>{order.workEnd}</td>
-                <td>{order.cost}</td>
+        const orderServiceList = orderService.map(orderService => {
+            return <tr key={orderService.id}>
+                <td>{orderService.id}</td>
+                <td>{orderService.orderId}</td>
+                <td>{orderService.serviceId}</td>
+                <td>{orderService.employeeId}</td>
+                <td>{orderService.dateStart}</td>
+                <td>{orderService.dateEnd}</td>
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/orders/" + order.id}>Edit</Button>
-                        <Button size="sm" color="danger" onClick={() => this.remove(order.id)}>Delete</Button>
+                        <Button size="sm" color="primary" tag={Link} to={"/orderService/" + orderService.id}>Edit</Button>
+                        <Button size="sm" color="danger" onClick={() => this.remove(orderService.id)}>Delete</Button>
                     </ButtonGroup>
                 </td>
             </tr>
@@ -64,11 +63,11 @@ class OrderList extends Component {
                         <Col xs={10}>
                             <Row>
                                 <Col>
-                                    <h3>Orders</h3>
+                                    <h3>OrderService</h3>
                                 </Col>
                                 <Col>
                                     <div className="d-flex justify-content-end">
-                                        <Button color="success" tag={Link} to="/orders/new">Add Order</Button>
+                                        <Button color="success" tag={Link} to="/orderService/new">Add OrderService</Button>
                                     </div>
                                 </Col>
                             </Row>
@@ -78,17 +77,16 @@ class OrderList extends Component {
                                 <thead>
                                 <tr>
                                     <th width="5%">id</th>
-                                    <th width="10%">ClientId</th>
-                                    <th width="10%">CarId</th>
-                                    <th width="20%">DateOfOrder</th>
-                                    <th width="20%">WorkStart</th>
-                                    <th width="20%">WorkEnd</th>
-                                    <th width="5%">Cost</th>
-                                    <th width="10%">Actions</th>
+                                    <th width="15%">OrderId</th>
+                                    <th width="15%">ServiceId</th>
+                                    <th width="15%">EmployeeId</th>
+                                    <th width="15%">DateStart</th>
+                                    <th width="15%">DateEnd</th>
+                                    <th width="20%">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {orderList}
+                                {orderServiceList}
                                 </tbody>
                             </Table>
                         </Col>
@@ -100,4 +98,4 @@ class OrderList extends Component {
     }
 }
 
-export default OrderList;
+export default OrderServiceList;

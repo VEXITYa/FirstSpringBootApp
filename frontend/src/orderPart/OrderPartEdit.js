@@ -4,15 +4,12 @@ import {Button, Col, Container, Form, FormGroup, Input, Label, Row} from 'reacts
 import AppNavbar from '../AppNavbar';
 import AppSideBar from '../AppSideBar';
 
-class OrderEdit extends Component {
+class OrderPartEdit extends Component {
 
     emptyItem = {
-        clientId: 0,
-        carId: 0,
-        dateOfOrder: null,
-        workStart: null,
-        workEnd: null,
-        cost: 0
+        orderId: 0,
+        partId: 0,
+        count: 0,
     };
 
     constructor(props) {
@@ -26,8 +23,8 @@ class OrderEdit extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const order = await (await fetch(`/api/orders/${this.props.match.params.id}`)).json();
-            this.setState({item: order});
+            const orderPart = await (await fetch(`/api/orderPart/${this.props.match.params.id}`)).json();
+            this.setState({item: orderPart});
         }
     }
 
@@ -44,7 +41,7 @@ class OrderEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
 
-        await fetch('/api/orders' + (item.id ? '/' + item.id : ''), {
+        await fetch('/api/orderPart' + (item.id ? '/' + item.id : ''), {
             method: (item.id) ? 'PUT' : 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -52,12 +49,12 @@ class OrderEdit extends Component {
             },
             body: JSON.stringify(item),
         });
-        this.props.history.push('/orders');
+        this.props.history.push('/orderPart');
     }
 
     render() {
         const {item} = this.state;
-        const title = <h2>{item.id ? 'Edit Order' : 'Add Order'}</h2>;
+        const title = <h2>{item.id ? 'Edit OrderPart' : 'Add OrderPart'}</h2>;
 
         return <div>
             <AppNavbar/>
@@ -71,38 +68,23 @@ class OrderEdit extends Component {
                         <Form onSubmit={this.handleSubmit}>
                             
                             <FormGroup>
-                                <Label for="clientId">ClientId</Label>
-                                <Input type="number" name="clientId" id="clientId" value={item.clientId || ''}
+                                <Label for="orderId">OrderId</Label>
+                                <Input type="number" name="orderId" id="orderId" value={item.orderId || ''}
                                        onChange={this.handleChange}/>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="carId">CarId</Label>
-                                <Input type="number" name="carId" id="carId" value={item.carId || ''}
+                                <Label for="partId">PartId</Label>
+                                <Input type="number" name="partId" id="partId" value={item.partId || ''}
                                        onChange={this.handleChange}/>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="name">DateOfOrder</Label>
-                                <Input type="datetime-local" name="dateOfOrder" id="dateOfOrder" value={item.dateOfOrder || ''}
-                                       onChange={this.handleChange} autoComplete="bday"/>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="name">WorkStart</Label>
-                                <Input type="datetime-local" name="workStart" id="workStart" value={item.workStart || ''}
-                                       onChange={this.handleChange} autoComplete="bday"/>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="name">WorkEnd</Label>
-                                <Input type="datetime-local" name="workEnd" id="workEnd" value={item.workEnd || ''}
-                                       onChange={this.handleChange} autoComplete="bday"/>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="name">Cost</Label>
-                                <Input type="number" name="cost" id="cost" value={item.cost || ''}
+                                <Label for="count">Count</Label>
+                                <Input type="number" name="count" id="count" value={item.count || ''}
                                        onChange={this.handleChange}/>
                             </FormGroup>
                             <FormGroup>
                                 <Button color="primary" type="submit">Save</Button>{' '}
-                                <Button color="secondary" tag={Link} to="/orders">Cancel</Button>
+                                <Button color="secondary" tag={Link} to="/orderPart">Cancel</Button>
                             </FormGroup>
                         </Form>
                     </Col>
@@ -113,4 +95,4 @@ class OrderEdit extends Component {
     }
 }
 
-export default withRouter(OrderEdit);
+export default withRouter(OrderPartEdit);

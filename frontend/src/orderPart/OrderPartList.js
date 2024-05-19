@@ -5,49 +5,46 @@ import AppSideBar from '../AppSideBar';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-class OrderList extends Component {
+class OrderPartList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {orders: []};
+        this.state = {orderPart: []};
         this.remove = this.remove.bind(this);
     }
 
     componentDidMount() {
-        fetch('/api/orders')
+        fetch('/api/orderPart')
             .then(response => response.json())
-            .then(data => this.setState({orders: data}));
+            .then(data => this.setState({orderPart: data}));
     }
 
     async remove(id) {
-        await fetch(`/api/orders/${id}`, {
+        await fetch(`/api/orderPart/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         }).then(() => {
-            let updatedOrders = [...this.state.orders].filter(i => i.id !== id);
-            this.setState({orders: updatedOrders});
+            let updatedOrderPart = [...this.state.orderPart].filter(i => i.id !== id);
+            this.setState({orderPart: updatedOrderPart});
         });
     }
 
     render() {
-        const {orders} = this.state;
+        const {orderPart} = this.state;
 
-        const orderList = orders.map(order => {
-            return <tr key={order.id}>
-                <td>{order.id}</td>
-                <td>{order.clientId}</td>
-                <td>{order.carId}</td>
-                <td>{order.dateOfOrder}</td>
-                <td>{order.workStart}</td>
-                <td>{order.workEnd}</td>
-                <td>{order.cost}</td>
+        const orderPartList = orderPart.map(orderPart => {
+            return <tr key={orderPart.id}>
+                <td>{orderPart.id}</td>
+                <td>{orderPart.orderId}</td>
+                <td>{orderPart.partId}</td>
+                <td>{orderPart.count}</td>
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/orders/" + order.id}>Edit</Button>
-                        <Button size="sm" color="danger" onClick={() => this.remove(order.id)}>Delete</Button>
+                        <Button size="sm" color="primary" tag={Link} to={"/orderPart/" + orderPart.id}>Edit</Button>
+                        <Button size="sm" color="danger" onClick={() => this.remove(orderPart.id)}>Delete</Button>
                     </ButtonGroup>
                 </td>
             </tr>
@@ -64,11 +61,11 @@ class OrderList extends Component {
                         <Col xs={10}>
                             <Row>
                                 <Col>
-                                    <h3>Orders</h3>
+                                    <h3>OrderPart</h3>
                                 </Col>
                                 <Col>
                                     <div className="d-flex justify-content-end">
-                                        <Button color="success" tag={Link} to="/orders/new">Add Order</Button>
+                                        <Button color="success" tag={Link} to="/orderPart/new">Add OrderPart</Button>
                                     </div>
                                 </Col>
                             </Row>
@@ -78,17 +75,14 @@ class OrderList extends Component {
                                 <thead>
                                 <tr>
                                     <th width="5%">id</th>
-                                    <th width="10%">ClientId</th>
-                                    <th width="10%">CarId</th>
-                                    <th width="20%">DateOfOrder</th>
-                                    <th width="20%">WorkStart</th>
-                                    <th width="20%">WorkEnd</th>
-                                    <th width="5%">Cost</th>
-                                    <th width="10%">Actions</th>
+                                    <th width="25%">OrderId</th>
+                                    <th width="25%">PartId</th>
+                                    <th width="25%">Count</th>
+                                    <th width="20%">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {orderList}
+                                {orderPartList}
                                 </tbody>
                             </Table>
                         </Col>
@@ -100,4 +94,4 @@ class OrderList extends Component {
     }
 }
 
-export default OrderList;
+export default OrderPartList;
