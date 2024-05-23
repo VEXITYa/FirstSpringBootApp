@@ -52,6 +52,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/api/service", "/api/service/*").permitAll()
                         .antMatchers(HttpMethod.GET, "/api/servicePart", "/api/servicePart/*").permitAll()
 
+                        .antMatchers(HttpMethod.POST, "/api/viewService", "/api/viewService/*").permitAll()
                         .antMatchers(HttpMethod.POST, "/api/clients", "/api/clients/*").hasRole("ADMIN")
                         .antMatchers(HttpMethod.POST, "/api/cars", "/api/cars/*").hasRole("ADMIN")
                         .antMatchers(HttpMethod.POST, "/api/orders", "/api/orders/*").permitAll()
@@ -63,6 +64,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.POST, "/api/service", "/api/service/*").hasRole("ADMIN")
                         .antMatchers(HttpMethod.POST, "/api/servicePart", "/api/servicePart/*").hasRole("ADMIN")
 
+                        .antMatchers(HttpMethod.PUT, "/api/viewService", "/api/viewService/*").permitAll()
                         .antMatchers(HttpMethod.PUT, "/api/clients", "/api/clients/*").hasRole("ADMIN")
                         .antMatchers(HttpMethod.PUT, "/api/cars", "/api/cars/*").hasRole("ADMIN")
                         .antMatchers(HttpMethod.PUT, "/api/orders", "/api/orders/*").permitAll()
@@ -74,6 +76,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.PUT, "/api/service", "/api/service/*").hasRole("ADMIN")
                         .antMatchers(HttpMethod.PUT, "/api/servicePart", "/api/servicePart/*").hasRole("ADMIN")
 
+                        .antMatchers(HttpMethod.DELETE, "/api/viewService", "/api/viewService/*").permitAll()
                         .antMatchers(HttpMethod.DELETE, "/api/clients", "/api/clients/*").hasRole("ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/api/cars", "/api/cars/*").hasRole("ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/api/orders", "/api/orders/*").permitAll()
