@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import {Navbar, NavbarBrand} from "reactstrap";
 
 export default class AppNavbar extends Component {
     constructor(props) {
@@ -15,12 +16,8 @@ export default class AppNavbar extends Component {
     }
 
     render() {
-        return  <nav class="navbar navbar-dark bg-dark">
-                    <div class="container-fluid">
-                        <a class="navbar-brand " href="/">
-                                CarService
-                        </a>
-                    </div>
-                </nav>
+        return  <Navbar color="dark" dark expand="md" className="d-flex justify-content-between">
+            <NavbarBrand href="/" className="ms-3">CarService</NavbarBrand>
+        </Navbar>
     }
 }

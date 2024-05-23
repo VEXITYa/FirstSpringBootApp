@@ -1,8 +1,10 @@
 package com.example.TestSpring.controller;
 
+import com.example.TestSpring.entity.Car;
 import com.example.TestSpring.entity.Client;
 import com.example.TestSpring.service.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,11 @@ public class ClientController {
     public ResponseEntity<List<Client>> getClients() {
 
         return clientService.getClients();
+    }
+
+    @GetMapping("/cars")
+    public ResponseEntity<List<Object>> getClientCars(@RequestParam String phoneNumber){
+        return clientService.getClientCars(phoneNumber);
     }
 
     @PermitAll

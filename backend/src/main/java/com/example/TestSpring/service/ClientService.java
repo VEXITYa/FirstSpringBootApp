@@ -1,11 +1,13 @@
 package com.example.TestSpring.service;
 
+import com.example.TestSpring.entity.Car;
 import com.example.TestSpring.entity.Client;
 import com.example.TestSpring.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,6 +19,11 @@ import java.util.List;
 public class ClientService {
 
     private final ClientRepository clientRepository;
+
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<Object>> getClientCars(String clientPhoneNumber) {
+        return new ResponseEntity<>(clientRepository.getClientCars(clientPhoneNumber), HttpStatus.OK);
+    }
 
     public ResponseEntity<List<Client>> getClients() {
 

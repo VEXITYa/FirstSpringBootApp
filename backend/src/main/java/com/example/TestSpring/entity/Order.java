@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -27,13 +27,13 @@ public class Order {
     private Integer carId;
 
     @Column(name = "DateOfOrder", nullable = false)
-    private Instant dateOfOrder;
+    private LocalDateTime dateOfOrder;
 
     @Column(name = "WorkStart", nullable = false)
-    private Instant workStart;
+    private LocalDateTime workStart;
 
     @Column(name = "WorkEnd")
-    private Instant workEnd;
+    private LocalDateTime workEnd;
 
     @Column(name = "Cost", nullable = false)
     private Integer cost;

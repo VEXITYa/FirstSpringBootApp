@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
-import AppNavbar from './AppNavbar';
-import AppSideBar from './AppSideBar';
+import AdminNavbar from './AdminNavbar';
+import AdminSideBar from './AdminSideBar';
 import {Col, Container, Row} from "reactstrap";
 
 class Home extends Component {
     render() {
         return (
             <div>
-                <AppNavbar/>
+                <AdminNavbar/>
                 <Container fluid>
                     <Row>
                         <Col xs={2}>
-                            <AppSideBar/>
+                            <AdminSideBar/>
                         </Col>
                     </Row>
                 </Container>

@@ -19,7 +19,6 @@ public class CarService {
     private final CarRepository carRepository;
 
     public ResponseEntity<List<Car>> getCars() {
-
         return new ResponseEntity<>(carRepository.findAll(), HttpStatus.OK);
     }
 

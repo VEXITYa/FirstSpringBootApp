@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -17,6 +19,7 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     public ResponseEntity<List<Order>> getOrders() {
 
